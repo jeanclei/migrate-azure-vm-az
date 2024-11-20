@@ -26,10 +26,15 @@ This script simplifies the process of migrating an Azure Virtual Machine (VM) fr
 Run the script with the following parameters:
 
 ```bash
-./migrate_vm.sh -g <resource-group> -n <vm-name> -z <new-availability-zone> -l <location> -v <backup-vault-name>
+./migrate_vm.sh \
+  -g <resource-group> \
+  -n <vm-name> \
+  -z <new-availability-zone> \
+  -l <location> \
+  -v <backup-vault-name>
 ```
 
-### Parameters:
+### Parameters
 
 - `-g <resource-group>`: Resource group of the VM.
 - `-n <vm-name>`: Name of the VM to be migrated.
