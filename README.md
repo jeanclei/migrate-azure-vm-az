@@ -47,7 +47,12 @@ Run the script with the following parameters:
 ## Example
 
 ```bash
-./migrate_vm.sh -g my-resource-group -n my-vm -z 2 -l eastus -v my-backup-vault
+./migrate_vm.sh \
+  -g my-resource-group \
+  -n my-vm \
+  -z 2 \
+  -l eastus \
+  -v my-backup-vault
 ```
 
 This command migrates the VM `my-vm` in the `my-resource-group` to Availability Zone `2` within the `eastus` region, while creating an on-demand backup in the `my-backup-vault`.
