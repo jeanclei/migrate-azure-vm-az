@@ -3,17 +3,6 @@
 # Enable exit on error
 set -e
 
-echo "Starting Availability Zone migration script for Azure VMs..."
-
-az account show
-
-
-# Function to display script usage message
-usage() {
-  echo "Usage: $0 -g <resource-group> -n <vm-name> -z <new-az> -l <location> -v <vault-name>"
-  exit 1
-}
-
 # Parse arguments
 while getopts ":g:n:z:l:v:" opt; do
   case $opt in
@@ -26,11 +15,31 @@ while getopts ":g:n:z:l:v:" opt; do
   esac
 done
 
+# Function to display script usage message
+usage() {
+  cat << EOF
+
+Usage:
+
+$0 \\
+  -g <resource-group> \\
+  -n <vm-name> \\
+  -z <new-az> \\
+  -l <location> \\
+  -v <vault-name>
+EOF
+  exit 1
+}
+
 # Check if all required arguments are provided
 if [ -z "$RESOURCE_GROUP" ] || [ -z "$VAULT_NAME" ] || [ -z "$VM_NAME" ] || [ -z "$LOCATION" ] || [ -z "$NEW_AZ" ]; then
   echo "Error: All parameters are required."
   usage
 fi
+
+echo "Starting Availability Zone migration script for Azure VMs..."
+
+az account show
 
 # Function to display error messages
 error_exit() {
