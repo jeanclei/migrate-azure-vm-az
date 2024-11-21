@@ -51,8 +51,9 @@ error_exit() {
 clean_tags() {
   local tags="$1"
   # Remove invalid characters
-  tags=$(echo "$tags" | sed 's/[<>%&\\?\/{},]//g')
-  tags=$(echo "$tags" | sed 's/": "/"="/g')
+  tags=$(echo "$tags" | sed 's/[<>%&\\?\/{}, ]//g')
+  tags=$(echo "$tags" | sed 's/":"/=/g')
+  tags=$(echo "$tags" | sed 's/"//g')
   echo "$tags"
 }
 
