@@ -87,6 +87,7 @@ This command migrates the VM `my-vm` in the `my-resource-group` to Availability 
 - Ensure the **Azure Backup Vault** is set up correctly before running the script.
 - The script cleans up old resources only if the migration is successful. Manual cleanup may be required in case of errors.
 - Some VM configurations (e.g., ultra disks) might require additional setup.
+- **Limitation**: This script does not support VMs using **shared disks** or VMs with **public IPs**.
 
 ---
 
