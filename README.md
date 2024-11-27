@@ -26,7 +26,7 @@ This script simplifies the process of migrating an Azure Virtual Machine (VM) fr
 Run the script with the following parameters:
 
 ```bash
-./migrate_vm.sh \
+./migrate-vm-az.sh \
   -g <resource-group> \
   -n <vm-name> \
   -z <new-availability-zone> \
@@ -47,7 +47,7 @@ Run the script with the following parameters:
 ## Example
 
 ```bash
-./migrate_vm.sh \
+./migrate-vm-az.sh \
   -g my-resource-group \
   -n my-vm \
   -z 2 \
