@@ -98,17 +98,6 @@ wait_for_snapshot_completion() {
   done
 }
 
-# Stop the VM
-echo "Stopping VM $VM_NAME..."
-az vm deallocate --resource-group $RESOURCE_GROUP --name $VM_NAME \
-  || error_exit "Failed to stop the VM."
-
-echo "Waiting for VM $VM_NAME to be fully stopped..."
-az vm wait --resource-group $RESOURCE_GROUP --name $VM_NAME --custom "instanceView.statuses[?code=='PowerState/deallocated']" \
-  || error_exit "VM $VM_NAME was not fully stopped."
-
-echo "VM $VM_NAME stopped successfully."
-
 # Create additional backup in Vault
 echo "Starting on-demand backup of VM in Backup Vault..."
 BACKUP_JOB_OUTPUT=$(az backup protection backup-now \
@@ -144,6 +133,17 @@ echo "Waiting for the backup completion..."
 wait_for_snapshot_completion "$BACKUP_JOB_ID" "$RESOURCE_GROUP" "$VAULT_NAME"
 
 echo "Backup completed successfully!"
+
+# Stop the VM
+echo "Stopping VM $VM_NAME..."
+az vm deallocate --resource-group $RESOURCE_GROUP --name $VM_NAME \
+  || error_exit "Failed to stop the VM."
+
+echo "Waiting for VM $VM_NAME to be fully stopped..."
+az vm wait --resource-group $RESOURCE_GROUP --name $VM_NAME --custom "instanceView.statuses[?code=='PowerState/deallocated']" \
+  || error_exit "VM $VM_NAME was not fully stopped."
+
+echo "VM $VM_NAME stopped successfully."
 
 # Get VM information
 OS_DISK_NAME=$(az vm show --resource-group $RESOURCE_GROUP --name $VM_NAME --query "storageProfile.osDisk.name" -o tsv) \
